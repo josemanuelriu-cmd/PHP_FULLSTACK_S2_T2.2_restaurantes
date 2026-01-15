@@ -12,7 +12,7 @@
 2. ## 📊 Query Performance Report
 
 - 🧪 **Query**: `db.restaurants.find({},{ "restaurant_id": 1, "name": 1, "_id": 0 })`
-- ⏱️ **Execution time**: 0 ms
+- ⏱️ **Execution time**: 1 ms
 - 📚 **Documents returned**: 664
 - 🔍 **Documents examined**: 664
 - 🛠️ **Execution stage**: PROJECTION_SIMPLE
@@ -229,7 +229,7 @@ db.restaurants.createIndex({ grades.score: 1 });
 12. ## 📊 Query Performance Report
 
 - 🧪 **Query**: `db.restaurants.find({"cuisine":{$ne: "American"},"grades.score":{ $gt: 70},"location.coordinates.0": { $lt: -65.754168 }},{"_id":0})`
-- ⏱️ **Execution time**: 1 ms
+- ⏱️ **Execution time**: 2 ms
 - 📚 **Documents returned**: 1
 - 🔍 **Documents examined**: 664
 - 🛠️ **Execution stage**: PROJECTION_SIMPLE
@@ -382,7 +382,7 @@ db.restaurants.createIndex({ cuisine: 1 });
 18. ## 📊 Query Performance Report
 
 - 🧪 **Query**: `db.restaurants.find({"borough": { $in: ["Staten Island","Queens","Bronx","Brooklyn"]}},{ "restaurant_id": 1, "name": 1, "borough": 1, "cuisine": 1, "_id": 0 })`
-- ⏱️ **Execution time**: 1 ms
+- ⏱️ **Execution time**: 0 ms
 - 📚 **Documents returned**: 359
 - 🔍 **Documents examined**: 664
 - 🛠️ **Execution stage**: PROJECTION_SIMPLE
@@ -478,7 +478,7 @@ db.restaurants.createIndex({ name: 1 });
 22. ## 📊 Query Performance Report
 
 - 🧪 **Query**: `db.restaurants.find({},{ _id: 0 }).sort("name:1")`
-- ⏱️ **Execution time**: 2 ms
+- ⏱️ **Execution time**: 1 ms
 - 📚 **Documents returned**: 664
 - 🔍 **Documents examined**: 664
 - 🛠️ **Execution stage**: SORT
@@ -516,6 +516,29 @@ Consider creating these indexes:
 ```javascript
 db.restaurants.createIndex({ borough: 1 });
 db.restaurants.createIndex({ cuisine: 1 });
+```
+
+
+25. ## 📊 Query Performance Report
+
+- 🧪 **Query**: `db.restaurants.find({"address.street":""},{ "address":1, "_id": 0 })`
+- ⏱️ **Execution time**: 0 ms
+- 📚 **Documents returned**: 1
+- 🔍 **Documents examined**: 664
+- 🛠️ **Execution stage**: PROJECTION_SIMPLE
+
+## 🚨 Performance Issues
+
+### ⚠️ High Priority Issues
+- ⚠️ Examined 664 docs to return 1 (ratio 664.0:1)
+
+### ℹ️ Recommendations
+- ‼️ Filtering on unindexed field 'address.street' - performance may suffer.
+
+### 💡 Suggested Indexes
+Consider creating these indexes:
+```javascript
+db.restaurants.createIndex({ address.street: 1 });
 ```
 
 
