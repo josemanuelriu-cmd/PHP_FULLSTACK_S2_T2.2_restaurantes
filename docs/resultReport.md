@@ -33,3 +33,23 @@
 ---
 - ✔️ OK - Query **[ 11 ]**
 
+---
+- ✔️ OK - Query **[ 13 ]**
+
+---
+- ✔️ OK - Query **[ 14 ]**
+
+---
+- ✔️ OK - Query **[ 15 ]**
+
+---
+- ✔️ OK - Query **[ 16 ]**
+
+---
+- ❌ MISMATCH - Query **[ 17 ]** Result does not match expected output.
+
+
+🔢 Different result lengths: 
+- **Expected:** 22
+- **Got:** 2
+
