@@ -59,13 +59,13 @@ db.restaurants.find({"borough": { $nin: ["Staten Island","Queens","Bronx","Brook
 db.restaurants.find({"grades.score":{$lte:10}},{ "restaurant_id": 1, "name": 1, "borough": 1, "cuisine": 1, "_id": 0 })
 
 // 21. Trobar restaurants que preparen peix, no 'American' ni 'Chinees', o nom comença amb 'Wil'.
-
+db.restaurants.find({{{"cuisine":"Seafood"}, {"cuisine":"American"}, {"cuisine":"Chinese"}} $or {"name" : { $regex : /^Wil/ }},{ _id: 0 })
 
 // 22. Trobar restaurant_id, name, i grades per grau "A", score 11, i data "2014-08-11T00:00:00Z".
-
+db.restaurants.find({{grades.grade:"A"},{grades.score:"11"},{grades.date:"2014-08-11T00:00:00Z"}},{ "restaurant_id": 1, "name": 1, "grades": 1, "_id": 0 })
 
 // 23. Trobar restaurant_id, name i grades on el 2n element té grau "A", score 9 i data "2014-08-11T00:00:00Z".
-
+db.restaurants.find({{grades.1.grade:"A"},{grades.1.score:"9"},{grades.1.date:"2014-08-11T00:00:00Z"}},{ "restaurant_id": 1, "name": 1, "grades": 1, "_id": 0 })
 
 // 24. Trobar el restaurant_id, name, street, zipcode i coordenades dels restaurants a menys de 5 km de [-74, 40.7].
 
