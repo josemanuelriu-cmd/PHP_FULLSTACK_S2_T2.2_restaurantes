@@ -1,7 +1,7 @@
 1. ## 📊 Query Performance Report
 
 - 🧪 **Query**: `db.restaurants.find({},{ _id: 0 })`
-- ⏱️ **Execution time**: 0 ms
+- ⏱️ **Execution time**: 1 ms
 - 📚 **Documents returned**: 664
 - 🔍 **Documents examined**: 664
 - 🛠️ **Execution stage**: PROJECTION_SIMPLE
@@ -103,13 +103,13 @@ db.restaurants.createIndex({ borough: 1 });
 - 🧪 **Query**: `db.restaurants.find({"borough":"Bronx"},{ _id: 0 }).limit(5)`
 - ⏱️ **Execution time**: 0 ms
 - 📚 **Documents returned**: 5
-- 🔍 **Documents examined**: 55
+- 🔍 **Documents examined**: 57
 - 🛠️ **Execution stage**: LIMIT
 
 ## 🚨 Performance Issues
 
 ### ⚠️ High Priority Issues
-- ⚠️ Examined 55 docs to return 5 (ratio 11.0:1)
+- ⚠️ Examined 57 docs to return 5 (ratio 11.4:1)
 
 ### ℹ️ Recommendations
 - ‼️ Filtering on unindexed field 'borough' - performance may suffer.
@@ -147,7 +147,7 @@ db.restaurants.createIndex({ borough: 1 });
 8. ## 📊 Query Performance Report
 
 - 🧪 **Query**: `db.restaurants.find({"grades.score":{$gt:90}}, { _id: 0 })`
-- ⏱️ **Execution time**: 2 ms
+- ⏱️ **Execution time**: 1 ms
 - 📚 **Documents returned**: 2
 - 🔍 **Documents examined**: 664
 - 🛠️ **Execution stage**: PROJECTION_SIMPLE
@@ -170,7 +170,7 @@ db.restaurants.createIndex({ grades.score: 1 });
 9. ## 📊 Query Performance Report
 
 - 🧪 **Query**: `db.restaurants.find({ "grades.score": { $gt: 80, $lt: 100 } }, { _id: 0 })`
-- ⏱️ **Execution time**: 2 ms
+- ⏱️ **Execution time**: 1 ms
 - 📚 **Documents returned**: 2
 - 🔍 **Documents examined**: 664
 - 🛠️ **Execution stage**: PROJECTION_SIMPLE
@@ -199,5 +199,30 @@ db.restaurants.createIndex({ grades.score: 1 });
 - 🛠️ **Execution stage**: PROJECTION_SIMPLE
 
 ## ✅ No significant issues detected
+
+
+11. ## 📊 Query Performance Report
+
+- 🧪 **Query**: `db.restaurants.find({$and: [{ "cuisine": {$ne: "American" }},{ "grades.score": {$gt: 70} },{ "location.coordinates.0": {$lt: -65.754168 }}]}, { "_id": 0 })`
+- ⏱️ **Execution time**: 2 ms
+- 📚 **Documents returned**: 1
+- 🔍 **Documents examined**: 664
+- 🛠️ **Execution stage**: PROJECTION_SIMPLE
+
+## 🚨 Performance Issues
+
+### ⚠️ High Priority Issues
+- ⚠️ Examined 664 docs to return 1 (ratio 664.0:1)
+
+### ℹ️ Recommendations
+- ‼️ Filtering on unindexed field 'cuisine' - performance may suffer.
+- ‼️ Filtering on unindexed field 'grades.score' - performance may suffer.
+
+### 💡 Suggested Indexes
+Consider creating these indexes:
+```javascript
+db.restaurants.createIndex({ cuisine: 1 });
+db.restaurants.createIndex({ grades.score: 1 });
+```
 
 
