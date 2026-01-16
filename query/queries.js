@@ -68,7 +68,7 @@ db.restaurants.find({$or: [{"cuisine":"Seafood", "cuisine": { $nin:["American","
 // db.restaurants.find({{"grades.1.grade":"A"},{"grades.1.score":"9"},{"grades.1.date":"2014-08-11T00:00:00Z"}},{ "restaurant_id": 1, "name": 1, "grades": 1, "_id": 0 })
 
 // 24. Trobar el restaurant_id, name, street, zipcode i coordenades dels restaurants a menys de 5 km de [-74, 40.7].
-
+// db.restaurants.find({},{"restaurant_id":1, "name":1, "street":1, "zipcode":1, "location.coordinates":1, "_id":0 })
 
 // 25. Ordenar els noms dels restaurants en ordre ascendent, mostrant totes les columnes.
 db.restaurants.find({},{ _id: 0 }).sort("name:1")
@@ -83,12 +83,13 @@ db.restaurants.find({},{ _id: 0 }).sort({"cuisine":1},{"borough":-1})
 db.restaurants.find({"address.street":""},{ "address":1, "_id": 0 })
 
 // 29. Seleccionar documents on el valor de `coordinate` és de tipus Double. Mostrar el name, restaurant_id i coordinades.
-
+// db.restaurants.find({},{"name":1, "restaurant_id":1, "location.coordinates":1, "_id":0 })
 
 // 30. Mostrar restaurant_id, name i grade per restaurants amb marcador divisible per 7 (resta 0).
-
+// db.restaurants.find({},{"restaurant_id":1, "name":1, "location.coordinates":1, "_id":0 })
 
 // 31. Trobar name, borough, longitud, latitud i cuisine per noms que contenen 'mon'.
-
+db.restaurants.find({"name" : { $regex : /nom/ }},"name":1, "borough":1, "location.coordinates":1, "cuisine":1,"_id":0 })
 
 // 32. Mostrar restaurant_id, name i grade i score de més de 80 però menys que 100.
+db.restaurants.find({"grades.score":{$gt:80, $lt:100}},{"restaurant_id":1, "name":1, "grades":1, "grades.score":1, "_id":0 })
