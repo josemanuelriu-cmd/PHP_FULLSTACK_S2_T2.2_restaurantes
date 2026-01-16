@@ -92,4 +92,4 @@ db.restaurants.find({"address.street":""},{ "address":1, "_id": 0 })
 db.restaurants.find({"name" : { $regex : /mon/ }},"name":1, "borough":1, "location.coordinates":1, "cuisine":1,"_id":0 })
 
 // 32. Mostrar restaurant_id, name i grade i score de més de 80 però menys que 100.
-db.restaurants.find({"grades.score":{$gt:"80"}, "grades.score":{$lt:100}},{"restaurant_id":1, "name":1, "grades":1, "grades.score":1, "_id":0 })
+// db.restaurants.find({"grades.score":{$gt:"80"}, "grades.score":{$lt:"100"}},{"restaurant_id":1, "name":1, "grades":1, "grades.score":1, "_id":0 })
